@@ -1,0 +1,28 @@
+{
+  "name": "opinia-website",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "Dumitru Cantea",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "2.12.1",
+    "next": "10.0.3",
+    "next-auth": "3.1.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-markdown": "5.0.3"
+  },
+  "devDependencies": {
+    "@prisma/cli": "2.12.1",
+    "@types/next-auth": "3.1.18",
+    "@types/node": "14.14.10",
+    "@types/react": "17.0.0",
+    "typescript": "4.1.2"
+  }
+}

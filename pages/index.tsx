@@ -1,60 +1,50 @@
 import React from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
-import prisma from '../lib/prisma'
+import prisma from "../lib/prisma";
+import { Statement } from "@prisma/client";
 
-export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.post.findMany({
+export const getServerSideProps: GetStaticProps = async () => {
+  const statements = await prisma.statement.findMany({
     where: {
-      published: true,
+      languageCode: "ro"
     },
     include: {
-      author: {
-        select: {
-          name: true,
-        },
-      },
-    },
+      author: true
+    }
   });
   return {
-    props: { feed },
+    props: { statements: JSON.parse(JSON.stringify(statements)) }
   };
 };
 
 type Props = {
-  feed: PostProps[];
+  statements: Statement[];
 };
 
-const Blog: React.FC<Props> = (props) => {
+const Index: React.FC<Props> = ({ statements }) => {
   return (
     <Layout>
-      <div className="page">
-        <h1>Public Feed</h1>
-        <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
-              <Post post={post} />
-            </div>
-          ))}
-        </main>
-      </div>
-      <style jsx>{`
-        .post {
-          background: white;
-          transition: box-shadow 0.1s ease-in;
-        }
-
-        .post:hover {
-          box-shadow: 1px 1px 3px #aaa;
-        }
-
-        .post + .post {
-          margin-top: 2rem;
-        }
-      `}</style>
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold leading-tight text-gray-900">
+            Declaratii
+          </h1>
+        </div>
+      </header>
+      <main>
+        <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            {statements.map((statement) => (
+              <div key={statement.id} className="post">
+                <a href={`/p/${statement.id}`}>Title</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </main>
     </Layout>
   );
 };
 
-export default Blog;
+export default Index;

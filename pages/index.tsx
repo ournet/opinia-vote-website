@@ -2,7 +2,8 @@ import React from "react";
 import { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import prisma from "../lib/prisma";
-import { Statement } from "@prisma/client";
+import StatementList from "../components/StatementList";
+import { StatementListItemType } from "../components/StatementListItem";
 
 export const getServerSideProps: GetStaticProps = async () => {
   const statements = await prisma.statement.findMany({
@@ -11,7 +12,9 @@ export const getServerSideProps: GetStaticProps = async () => {
     },
     include: {
       author: true
-    }
+    },
+    take: 20,
+    orderBy: { id: "desc" }
   });
   return {
     props: { statements: JSON.parse(JSON.stringify(statements)) }
@@ -19,7 +22,7 @@ export const getServerSideProps: GetStaticProps = async () => {
 };
 
 type Props = {
-  statements: Statement[];
+  statements: StatementListItemType[];
 };
 
 const Index: React.FC<Props> = ({ statements }) => {
@@ -35,11 +38,7 @@ const Index: React.FC<Props> = ({ statements }) => {
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            {statements.map((statement) => (
-              <div key={statement.id} className="post">
-                <a href={`/p/${statement.id}`}>Title</a>
-              </div>
-            ))}
+            <StatementList items={statements} />
           </div>
         </div>
       </main>

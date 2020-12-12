@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React from "react";
+import links from "../lib/links";
 
 const Layout: React.FC = () => (
   <nav className="bg-gray-800">
@@ -14,40 +16,16 @@ const Layout: React.FC = () => (
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <a
-                href="/"
-                className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Declaratii
-              </a>
-
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Team
-              </a>
-
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Projects
-              </a>
-
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Calendar
-              </a>
-
-              <a
-                href="#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Reports
-              </a>
+              <Link href={links.index()}>
+                <a className="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Declaratii
+                </a>
+              </Link>
+              <Link href={links.index()}>
+                <a className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                  Subiecte
+                </a>
+              </Link>
             </div>
           </div>
         </div>

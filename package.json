@@ -5,13 +5,17 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "generate-locales": "localizy -d public/static/locales -o lib/locales/generated-locales.ts",
+    "new-migrate": "prisma migrate save --experimental",
+    "migrate": "prisma migrate up --experimental"
   },
   "keywords": [],
   "author": "Dumitru Cantea",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "2.12.1",
+    "localizy": "^0.1.6",
     "next": "10.0.3",
     "next-auth": "3.1.0",
     "react": "17.0.1",

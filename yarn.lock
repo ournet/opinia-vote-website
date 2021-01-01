@@ -2662,6 +2662,14 @@ loader-utils@^1.2.3:
     emojis-list "^3.0.0"
     json5 "^1.0.1"
 
+localizy@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/localizy/-/localizy-0.1.6.tgz#97dd4f123781c0c33786caf25aab0a84a590de6a"
+  integrity sha512-fJn0OP03kavzzI57orzEyc1uqxvX8CGV3h3pCGHBlbm41+vztSm4mb6Y4DRK2Korfhq2fwiqencLU1/ZP+Jpaw==
+  dependencies:
+    sprintf-js "^1.1.1"
+    sprintf-ts "^0.1.0"
+
 locate-path@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-3.0.0.tgz#dbec3b3ab759758071b58fe59fc41871af21400e"
@@ -4268,10 +4276,20 @@ split-string@^3.0.1, split-string@^3.0.2:
   dependencies:
     extend-shallow "^3.0.0"
 
+sprintf-js@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
+  integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
+
+sprintf-ts@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/sprintf-ts/-/sprintf-ts-0.1.0.tgz#7ed0a0848574f649ea7b00af452f4540668d163b"
+  integrity sha512-Yv65oNMYoZjQ7cA+f3LdyDNiwiPbbqhEEYHC7zBTPtXI9prJW6dl0qbdnVY0q3RnJRC7+rrMw6I3SElsIBQo5Q==
 
 ssri@^6.0.1:
   version "6.0.1"

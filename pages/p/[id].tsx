@@ -5,10 +5,11 @@ import prisma from "../../lib/prisma";
 import { Statement } from "@prisma/client";
 import { toIntOrNull } from "../../lib/utils";
 import links from "../../lib/links";
+import { BaseComponentProps } from "../../components/common";
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
-  res
+  locale
 }) => {
   const id = toIntOrNull(params?.id);
   let statement: null | Statement = null;
@@ -21,24 +22,26 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   if (!statement) {
-    res.statusCode = 404;
-    res.setHeader("location", "/404");
+    return {
+      notFound: true
+    };
   }
 
   return {
     props: {
-      statement: statement ? JSON.parse(JSON.stringify(statement)) : null
+      statement: JSON.parse(JSON.stringify(statement)),
+      lang: locale
     }
   };
 };
 
-type Props = {
+interface Props extends BaseComponentProps {
   statement: Statement;
-};
+}
 
-const Index: React.FC<Props> = ({ statement }) => {
+const Index: React.FC<Props> = ({ statement, lang }) => {
   return (
-    <Layout>
+    <Layout lang={lang}>
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">

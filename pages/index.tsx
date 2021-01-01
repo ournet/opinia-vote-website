@@ -4,9 +4,8 @@ import Layout from "../components/Layout";
 import prisma from "../lib/prisma";
 import StatementList from "../components/StatementList";
 import { StatementListItemType } from "../components/StatementListItem";
-import { BaseComponentProps } from "../components/common";
 
-export const getServerSideProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetStaticProps = async () => {
   const statements = await prisma.statement.findMany({
     where: {
       languageCode: "ro"
@@ -18,17 +17,17 @@ export const getServerSideProps: GetStaticProps = async ({ locale }) => {
     orderBy: { id: "desc" }
   });
   return {
-    props: { statements: JSON.parse(JSON.stringify(statements)), lang: locale }
+    props: { statements: JSON.parse(JSON.stringify(statements)) }
   };
 };
 
-interface Props extends BaseComponentProps {
+type Props = {
   statements: StatementListItemType[];
-}
+};
 
-const Index: React.FC<Props> = ({ statements, lang }) => {
+const Index: React.FC<Props> = ({ statements }) => {
   return (
-    <Layout lang={lang}>
+    <Layout>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold leading-tight text-gray-900">

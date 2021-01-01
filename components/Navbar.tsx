@@ -2,10 +2,9 @@ import Link from "next/link";
 import React from "react";
 import links from "../lib/links";
 import useTranslation from "../lib/locales/use-translation";
-import { BaseComponentProps } from "./common";
 
-const Layout: React.FC<BaseComponentProps> = (props) => {
-  const t = useTranslation(props.lang);
+const Layout: React.FC = () => {
+  const t = useTranslation();
   return (
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

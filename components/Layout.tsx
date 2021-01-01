@@ -1,10 +1,9 @@
 import React, { ReactNode } from "react";
-import { BaseComponentProps } from "./common";
 import Navbar from "./Navbar";
 
-const Layout: React.FC<BaseComponentProps> = (props) => (
+const Layout: React.FC = (props) => (
   <div>
-    <Navbar lang={props.lang} />
+    <Navbar />
     {props.children}
   </div>
 );

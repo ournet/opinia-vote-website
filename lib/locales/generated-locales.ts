@@ -40,6 +40,21 @@ export class LocalizyLocales {
     home() {
         return this.v('home');
     }
+
+    statements() {
+        return this.v('statements');
+    }
+
+    statement() {
+        return this.v('statement');
+    }
+
+    authors() {
+        return this.v('authors');
+    }
 }
 
-export type LocalesKey = 'home';
+export type LocalesKey = 'home'
+    | 'statements'
+    | 'statement'
+    | 'authors';

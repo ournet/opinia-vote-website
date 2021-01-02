@@ -1,47 +1,32 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
-import prisma from "../../lib/prisma";
 import { Statement } from "@prisma/client";
 import { toIntOrNull } from "../../lib/utils";
 import links from "../../lib/links";
-import { BaseComponentProps } from "../../components/common";
+import apiClient from "../../lib/api-client";
 
-export const getServerSideProps: GetServerSideProps = async ({
-  params,
-  locale
-}) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = toIntOrNull(params?.id);
-  let statement: null | Statement = null;
+  if (!id) return { notFound: true };
+  const statement = apiClient.statement.findById(id);
 
-  if (id) {
-    statement = await prisma.statement.findUnique({
-      where: { id },
-      include: { author: true }
-    });
-  }
-
-  if (!statement) {
-    return {
-      notFound: true
-    };
-  }
+  if (!statement) return { notFound: true };
 
   return {
     props: {
-      statement: JSON.parse(JSON.stringify(statement)),
-      lang: locale
+      statement: JSON.parse(JSON.stringify(statement))
     }
   };
 };
 
-interface Props extends BaseComponentProps {
+type Props = {
   statement: Statement;
-}
+};
 
-const Index: React.FC<Props> = ({ statement, lang }) => {
+const Index: React.FC<Props> = ({ statement }) => {
   return (
-    <Layout lang={lang}>
+    <Layout>
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">

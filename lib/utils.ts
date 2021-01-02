@@ -8,3 +8,11 @@ export const toIntOrNull = (value: unknown) => {
 
   return Number.isFinite(v) ? v : null;
 };
+
+export const buildUrl = (path: string, query: any) => {
+  const q = Object.keys(query).map(
+    (key) => `${key}=${encodeURIComponent(query[key])}`
+  );
+
+  return `${path}?${q.join("&")}`;
+};

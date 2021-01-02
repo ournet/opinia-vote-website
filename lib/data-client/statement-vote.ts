@@ -6,8 +6,20 @@ export interface StatementVoteParams {
   points: number;
 }
 
-const statementVote = (params: StatementVoteParams) => {
-  return prisma.statementVote.upsert({
+const updateStatementCountVotes = async (statementId: number) => {
+  const [countMinusVotes, countPlusVotes] = await Promise.all([
+    prisma.statementVote.count({ where: { statementId, points: -1 } }),
+    prisma.statementVote.count({ where: { statementId, points: 1 } })
+  ]);
+
+  return prisma.statement.update({
+    where: { id: statementId },
+    data: { countMinusVotes, countPlusVotes }
+  });
+};
+
+const statementVote = async (params: StatementVoteParams) => {
+  const vote = await prisma.statementVote.upsert({
     create: {
       points: params.points,
       statement: { connect: { id: params.statementId } },
@@ -21,6 +33,10 @@ const statementVote = (params: StatementVoteParams) => {
       }
     }
   });
+
+  await updateStatementCountVotes(vote.statementId);
+
+  return vote;
 };
 
 export default statementVote;

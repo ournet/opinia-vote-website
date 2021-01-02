@@ -13,12 +13,13 @@ export interface StatementsListParams {
   >;
 }
 
-const statementsList = ({ take, orderBy, where }: StatementsListParams) =>
+const statementsList = ({ take, orderBy, where, skip }: StatementsListParams) =>
   prisma.statement.findMany({
     where,
     include: { author: true },
     take,
-    orderBy
+    orderBy,
+    skip
   });
 
 export default statementsList;

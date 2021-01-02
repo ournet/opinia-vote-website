@@ -1,5 +1,6 @@
 import { Entity, Statement } from "@prisma/client";
 import { useSWRInfinite } from "swr";
+import { buildUrl } from "../utils";
 
 export type ApiStatementItem = Statement & { author: Entity };
 
@@ -11,24 +12,20 @@ export interface ApiGetStatementListParams {
 }
 
 const createKey = (
-  index: number,
+  page: number,
   url: string,
   params: ApiGetStatementListParams
-) => [url, { ...params, offset: index * params.limit }];
-
-const fetchData = async (...arg: any[]): Promise<ApiStatementItem[]> => {
-  console.log(arg);
-  return [];
-  // return fetch({ url, method: "GET" }).then((response) => response.json());
-};
+) => buildUrl(url, { ...params, offset: page * params.limit });
 
 const useStatementList = (
   params: ApiGetStatementListParams,
   initialData: ApiStatementItem[]
 ) => {
   const url = `/api/statements`;
-  return useSWRInfinite((index) => createKey(index, url, params), fetchData, {
-    initialData: [initialData]
+  return useSWRInfinite((page) => createKey(page, url, params), undefined, {
+    initialData: [initialData],
+    refreshInterval: 1000 * 60,
+    initialSize: 1
   });
 };
 

@@ -10,13 +10,17 @@ const getStatements = async (req: NextApiRequest, res: NextApiResponse) => {
     offset
   }: ApiGetStatementListParams = req.query as never;
 
+  console.log(`request`, req.query);
+
   if (!orderBy || !languageCode || !limit) return res.status(400).end();
+
+  const order = orderBy.split("__");
 
   const list = await dataClient.statement.list({
     where: { languageCode },
-    orderBy,
-    take: limit,
-    skip: offset
+    orderBy: { [order[0]]: order[1] },
+    take: parseInt(limit as never, 10),
+    skip: offset ? parseInt(offset as never, 10) : undefined
   });
 
   res.json(list);

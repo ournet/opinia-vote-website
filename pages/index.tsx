@@ -9,11 +9,11 @@ import { ApiGetStatementListParams } from "../lib/api-client/use-statement-list"
 import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const languageCode = locale || "";
+
   const statements = await dataClient.statement.list({
-    where: {
-      languageCode: locale || ""
-    },
-    take: 20,
+    where: { languageCode },
+    take: 1,
     orderBy: { id: "desc" }
   });
 
@@ -32,8 +32,8 @@ const Index: React.FC<Props> = ({ statements }) => {
   const t = useTranslation(languageCode);
   const params: ApiGetStatementListParams = {
     languageCode,
-    limit: 10,
-    orderBy: "id"
+    limit: 1,
+    orderBy: "id__desc"
   };
 
   return (

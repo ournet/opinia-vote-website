@@ -6,6 +6,7 @@ export interface StatementsListParams {
     languageCode: string;
   };
   take: number;
+  skip?: number;
   orderBy: XOR<
     Enumerable<Prisma.StatementOrderByInput>,
     Prisma.StatementOrderByInput

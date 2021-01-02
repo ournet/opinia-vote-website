@@ -4,12 +4,12 @@ import Layout from "../../components/Layout";
 import { Statement } from "@prisma/client";
 import { toIntOrNull } from "../../lib/utils";
 import links from "../../lib/links";
-import apiClient from "../../lib/api-client";
+import dataClient from "../../lib/data-client";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = toIntOrNull(params?.id);
   if (!id) return { notFound: true };
-  const statement = apiClient.statement.findById(id);
+  const statement = dataClient.statement.findById(id);
 
   if (!statement) return { notFound: true };
 

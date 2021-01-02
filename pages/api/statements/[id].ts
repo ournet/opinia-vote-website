@@ -1,19 +1,20 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/client";
-import apiClient from "../../../lib/api-client";
+import dataClient from "../../../lib/data-client";
 
 const createVote = async (req: NextApiRequest, res: NextApiResponse) => {
   const id = Number(req.query.id);
   const session = await getSession({ req });
   if (!session) return res.status(403);
   console.log(session);
-  res.json(session);
+  // res.json(session);
 
-  const vote = await apiClient.statementVote({
-    statementId:id,
-    userId: session.user.
+  const vote = await dataClient.statement.vote({
+    statementId: id,
+    userId: 1, //session.user.
+    points: 1
   });
-  res.json(post);
+  res.json(vote);
 };
 
 // PUT /api/statement-vote/:id

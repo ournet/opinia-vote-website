@@ -1,13 +1,15 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import StatementList from "../components/StatementList";
 import { StatementListItemType } from "../components/StatementListItem";
-import apiClient from "../lib/api-client";
 import useTranslation from "../lib/locales/use-translation";
+import dataClient from "../lib/data-client";
+import MoreStatementList from "../components/MoreStatementList";
+import { ApiGetStatementListParams } from "../lib/api-client/use-statement-list";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const statements = await apiClient.statement.list({
+  const statements = await dataClient.statement.list({
     where: {
       languageCode: locale || ""
     },
@@ -25,7 +27,15 @@ type Props = {
 };
 
 const Index: React.FC<Props> = ({ statements }) => {
-  const t = useTranslation();
+  const router = useRouter();
+  const languageCode = router.locale || "";
+  const t = useTranslation(languageCode);
+  const params: ApiGetStatementListParams = {
+    languageCode,
+    limit: 10,
+    orderBy: "id"
+  };
+
   return (
     <Layout>
       <header className="bg-white shadow">
@@ -38,7 +48,7 @@ const Index: React.FC<Props> = ({ statements }) => {
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            <StatementList items={statements} />
+            <MoreStatementList initialData={statements} params={params} />
           </div>
         </div>
       </main>

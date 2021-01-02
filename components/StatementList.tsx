@@ -5,7 +5,7 @@ export type StatementListItemsProps = {
   items: StatementListItemType[];
 };
 
-const List: React.FC<StatementListItemsProps> = ({ items }) => (
+const StatementList: React.FC<StatementListItemsProps> = ({ items }) => (
   <ul>
     {items.map((item) => (
       <li key={item.id}>
@@ -15,4 +15,4 @@ const List: React.FC<StatementListItemsProps> = ({ items }) => (
   </ul>
 );
 
-export default List;
+export default StatementList;

@@ -10,8 +10,6 @@ const getStatements = async (req: NextApiRequest, res: NextApiResponse) => {
     offset
   }: ApiGetStatementListParams = req.query as never;
 
-  console.log(`request`, req.query);
-
   if (!orderBy || !languageCode || !limit) return res.status(400).end();
 
   const order = orderBy.split("__");

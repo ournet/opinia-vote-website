@@ -1,6 +1,6 @@
 import { Entity, Statement } from "@prisma/client";
 import { useSWRInfinite } from "swr";
-import { buildUrl } from "../utils";
+import links from "../links";
 
 export type ApiStatementItem = Statement & { author: Entity };
 
@@ -11,18 +11,14 @@ export interface ApiGetStatementListParams {
   offset?: number;
 }
 
-const createKey = (
-  page: number,
-  url: string,
-  params: ApiGetStatementListParams
-) => buildUrl(url, { ...params, offset: page * params.limit });
+const createKey = (page: number, params: ApiGetStatementListParams) =>
+  links.api.statements.get({ ...params, offset: page * params.limit });
 
 const useStatementList = (
   params: ApiGetStatementListParams,
   initialData: ApiStatementItem[]
 ) => {
-  const url = `/api/statements`;
-  return useSWRInfinite((page) => createKey(page, url, params), undefined, {
+  return useSWRInfinite((page) => createKey(page, params), undefined, {
     initialData: [initialData],
     refreshInterval: 1000 * 60,
     initialSize: 1

@@ -19,8 +19,6 @@ const MoreStatementList: React.FC<MoreStatementListItemsProps> = ({
     initialData
   );
 
-  console.log(`data`, data, error, size, isValidating);
-
   const items = (data
     ? [].concat(...(data as never[]))
     : []) as ApiStatementItem[];

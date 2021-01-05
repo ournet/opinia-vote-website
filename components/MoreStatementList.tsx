@@ -1,7 +1,6 @@
 import React from "react";
-import useStatementList, {
-  ApiGetStatementListParams
-} from "../lib/api-client/use-statement-list";
+import useStatementList from "../lib/api-client/use-statement-list";
+import { ApiGetStatementListParams } from "../lib/links";
 import { StatementItemType } from "../lib/types";
 import StatementList from "./StatementList";
 

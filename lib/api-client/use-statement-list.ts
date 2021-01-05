@@ -1,13 +1,6 @@
 import { useSWRInfinite } from "swr";
-import links from "../links";
+import links, { ApiGetStatementListParams } from "../links";
 import { StatementItemType } from "../types";
-
-export interface ApiGetStatementListParams {
-  orderBy: string;
-  languageCode: string;
-  limit: number;
-  offset?: number;
-}
 
 const createKey = (page: number, params: ApiGetStatementListParams) =>
   links.api.statements.get({ ...params, offset: page * params.limit });

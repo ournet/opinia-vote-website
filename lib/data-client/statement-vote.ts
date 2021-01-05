@@ -19,6 +19,8 @@ const updateStatementCountVotes = async (statementId: number) => {
 };
 
 const statementVote = async (params: StatementVoteParams) => {
+  if (![-1, 1].includes(params.points)) throw new Error(`Invalid vote points`);
+
   const vote = await prisma.statementVote.upsert({
     create: {
       points: params.points,
@@ -34,9 +36,7 @@ const statementVote = async (params: StatementVoteParams) => {
     }
   });
 
-  await updateStatementCountVotes(vote.statementId);
-
-  return vote;
+  return updateStatementCountVotes(vote.statementId);
 };
 
 export default statementVote;

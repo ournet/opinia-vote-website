@@ -10,9 +10,9 @@ export const toIntOrNull = (value: unknown) => {
 };
 
 export const buildUrl = (path: string, query: any) => {
-  const q = Object.keys(query).map(
+  const q = Object.keys(query || {}).map(
     (key) => `${key}=${encodeURIComponent(query[key])}`
   );
 
-  return `${path}?${q.join("&")}`;
+  return q.length > 0 ? `${path}?${q.join("&")}` : path;
 };

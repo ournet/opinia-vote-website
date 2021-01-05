@@ -1,5 +1,16 @@
-import { ApiGetStatementListParams } from "./api-client/use-statement-list";
 import { buildUrl } from "./utils";
+
+export interface ApiGetStatementListParams {
+  orderBy: string;
+  languageCode: string;
+  limit: number;
+  offset?: number;
+}
+
+export interface ApiPostVoteParams {
+  statementId: number;
+  points: number;
+}
 
 export default {
   statement: (id: number) => `/p/${id}`,
@@ -10,6 +21,14 @@ export default {
     statements: {
       get(params: ApiGetStatementListParams) {
         return buildUrl("/api/statements", params);
+      },
+      counts(statementId: number) {
+        return `/api/statements/${statementId}/counts`;
+      }
+    },
+    votes: {
+      post(params: Partial<ApiPostVoteParams> = {}) {
+        return buildUrl("/api/votes", params);
       }
     }
   }

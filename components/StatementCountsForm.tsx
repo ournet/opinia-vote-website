@@ -1,19 +1,18 @@
 import { signIn, useSession } from "next-auth/client";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import useStatementCounts from "../lib/api-client/use-statement-counts";
 import links from "../lib/links";
 import { StatementCountsType } from "../lib/types";
 
 type Props = {
-  statementId: number;
+  statement: StatementCountsType;
 };
 
-const StatementCountsForm: React.FC<Props> = ({ statementId }) => {
+const StatementCountsForm: React.FC<Props> = ({ statement }) => {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
   const [session] = useSession();
-  const { data, error, mutate } = useStatementCounts(statementId);
+  const statementId = statement.id;
+  const { data, error, mutate } = useStatementCounts(statementId, statement);
 
   const vote = async (e: any) => {
     if (!session) return signIn();
@@ -26,19 +25,27 @@ const StatementCountsForm: React.FC<Props> = ({ statementId }) => {
       { method: "POST" }
     ).then((r) => r.json());
     setLoading(false);
-    mutate(result);
+    mutate(result, false);
   };
 
   return (
     <div>
       <button
         disabled={loading || !data}
-        data-points="-1"
+        data-points="1"
         onClick={(e) => vote(e)}
       >
         Yes
       </button>
-      votes {data?.countMinusVotes ?? "-"}
+      votes {data?.countPlusVotes ?? "..."}|{" "}
+      <button
+        disabled={loading || !data}
+        data-points="-1"
+        onClick={(e) => vote(e)}
+      >
+        No
+      </button>
+      votes {data?.countMinusVotes ?? "..."}
     </div>
   );
 };

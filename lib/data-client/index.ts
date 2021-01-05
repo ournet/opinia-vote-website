@@ -11,11 +11,17 @@ const statementCounts = (id: number) =>
     select: { countMinusVotes: true, id: true, countPlusVotes: true }
   });
 
+const userByEmail = (email: string) =>
+  prisma.user.findUnique({ where: { email } });
+
 export default {
   statement: {
     vote: statementVote,
     findById: statementById,
     list: statementsList,
     counts: statementCounts
+  },
+  user: {
+    byEmail: userByEmail
   }
 };

@@ -6,12 +6,14 @@ import { StatementCountsType } from "../../../lib/types";
 const createVote = async (req: NextApiRequest, res: NextApiResponse) => {
   const statementId = Number(req.body.statementId || req.query.statementId);
   const points = Number(req.body.points || req.query.points);
-  // const session = await getSession({ req });
-  // if (!session) return res.status(403).end();
+  const session = await getSession({ req });
+  if (!session) return res.status(403).end();
+
+  const user = await dataClient.user.byEmail(session.user.email || "");
 
   const vote = await dataClient.statement.vote({
     statementId,
-    userId: 1, //session.user.
+    userId: user?.id || 0,
     points
   });
 

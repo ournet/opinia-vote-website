@@ -34,7 +34,7 @@ const Index: React.FC<Props> = ({ statement }) => {
             <div className="post">
               <a href={links.statement(statement.id)}>Title</a>
             </div>
-            <StatementCountsForm statementId={statement.id} />
+            <StatementCountsForm statement={statement} />
           </div>
         </div>
       </main>

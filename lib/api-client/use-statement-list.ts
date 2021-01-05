@@ -1,8 +1,6 @@
-import { Entity, Statement } from "@prisma/client";
 import { useSWRInfinite } from "swr";
 import links from "../links";
-
-export type ApiStatementItem = Statement & { author: Entity };
+import { StatementItemType } from "../types";
 
 export interface ApiGetStatementListParams {
   orderBy: string;
@@ -16,7 +14,7 @@ const createKey = (page: number, params: ApiGetStatementListParams) =>
 
 const useStatementList = (
   params: ApiGetStatementListParams,
-  initialData: ApiStatementItem[]
+  initialData: StatementItemType[]
 ) => {
   return useSWRInfinite((page) => createKey(page, params), undefined, {
     initialData: [initialData],

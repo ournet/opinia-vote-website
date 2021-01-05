@@ -1,13 +1,11 @@
-import { Entity, Statement } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import entipicUrl from "../lib/entipicUrl";
 import links from "../lib/links";
-
-export type StatementListItemType = Statement & { author: Entity };
+import { StatementItemType } from "../lib/types";
 
 export type StatementListItemProps = {
-  item: StatementListItemType;
+  item: StatementItemType;
 };
 
 const Item: React.FC<StatementListItemProps> = ({ item }) => (

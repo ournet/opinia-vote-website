@@ -1,12 +1,12 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import Layout from "../components/Layout";
-import { StatementListItemType } from "../components/StatementListItem";
 import useTranslation from "../lib/locales/use-translation";
 import dataClient from "../lib/data-client";
 import MoreStatementList from "../components/MoreStatementList";
 import { ApiGetStatementListParams } from "../lib/api-client/use-statement-list";
 import { useRouter } from "next/router";
+import { StatementItemType } from "../lib/types";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const languageCode = locale || "";
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 };
 
 type Props = {
-  statements: StatementListItemType[];
+  statements: StatementItemType[];
 };
 
 const Index: React.FC<Props> = ({ statements }) => {

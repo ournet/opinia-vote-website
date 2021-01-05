@@ -1,12 +1,12 @@
 import React from "react";
 import useStatementList, {
-  ApiGetStatementListParams,
-  ApiStatementItem
+  ApiGetStatementListParams
 } from "../lib/api-client/use-statement-list";
+import { StatementItemType } from "../lib/types";
 import StatementList from "./StatementList";
 
 export type MoreStatementListItemsProps = {
-  initialData: ApiStatementItem[];
+  initialData: StatementItemType[];
   params: ApiGetStatementListParams;
 };
 
@@ -21,7 +21,7 @@ const MoreStatementList: React.FC<MoreStatementListItemsProps> = ({
 
   const items = (data
     ? [].concat(...(data as never[]))
-    : []) as ApiStatementItem[];
+    : []) as StatementItemType[];
   const isLoadingInitialData = !data && !error;
   const isLoadingMore =
     isLoadingInitialData ||

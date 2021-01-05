@@ -1,8 +1,9 @@
 import React from "react";
-import StatementListItem, { StatementListItemType } from "./StatementListItem";
+import { StatementItemType } from "../lib/types";
+import StatementListItem from "./StatementListItem";
 
 export type StatementListItemsProps = {
-  items: StatementListItemType[];
+  items: StatementItemType[];
 };
 
 const StatementList: React.FC<StatementListItemsProps> = ({ items }) => (

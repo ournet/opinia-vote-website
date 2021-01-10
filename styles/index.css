@@ -12,8 +12,20 @@ body {
 }
 
 /* Write your own custom component styles here */
-.btn-blue {
-  @apply px-4 py-2 font-bold text-white bg-blue-500 rounded;
+.btn {
+  @apply px-4 py-2 border border-transparent text-base font-bold rounded transition ease-in-out duration-150 disabled:opacity-50;
+}
+
+.btn-primary {
+  @apply text-white bg-blue-600 hover:bg-blue-500 focus:border-blue-700;
+}
+
+.btn-success {
+  @apply text-white bg-green-600 hover:bg-green-500 focus:border-green-700;
+}
+
+.btn-danger {
+  @apply text-white bg-red-600 hover:bg-red-500 focus:border-red-700;
 }
 
 /* Start purging... */

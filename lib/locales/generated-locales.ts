@@ -52,9 +52,19 @@ export class LocalizyLocales {
     authors() {
         return this.v('authors');
     }
+
+    yes() {
+        return this.v('yes');
+    }
+
+    no() {
+        return this.v('no');
+    }
 }
 
 export type LocalesKey = 'home'
     | 'statements'
     | 'statement'
-    | 'authors';
+    | 'authors'
+    | 'yes'
+    | 'no';

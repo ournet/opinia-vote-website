@@ -12,5 +12,5 @@ export default (
     size,
     encodeURIComponent(
       name.replace(/[\s_]/g, " ").trim().replace(/[\s]+/g, "_")
-    ) + ".jpg"
+    ) + ".webp"
   ].join("/");

@@ -3,40 +3,35 @@ import React from "react";
 import entipicUrl from "../lib/entipicUrl";
 import links from "../lib/links";
 import { StatementItemType } from "../lib/types";
+import EntityImage from "./EntityImage";
 
 export type StatementListItemProps = {
   item: StatementItemType;
 };
 
-const Item: React.FC<StatementListItemProps> = ({ item }) => (
-  <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-    <Link href={links.statement(item.id)}>
-      <a className="md:flex">
-        <div className="md:flex-shrink-0">
-          <img
-            className="h-48 w-full object-cover md:w-48"
-            src={entipicUrl(item.author.name, {
-              size: "d",
-              lang: item.author.languageCode
-            })}
-            alt={item.author.name}
-          />
-        </div>
-        <div className="p-8">
-          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-            {item.type}
-          </div>
-          <a
-            href="#"
-            className="block mt-1 text-lg leading-tight font-medium text-black hover:underline"
+const Item: React.FC<StatementListItemProps> = ({ item }) => {
+  return (
+    <div className="bg-white rounded shadow-md overflow-hidden">
+      <div className="rounded shadow bg-blue-900 overflow-hidden text-white flex">
+        <div className="flex-none w-32 p-4 text-center">
+          <Link
+            locale={item.languageCode}
+            href={links.entity(item.author.slug, item.author.id)}
           >
-            {item.type}
-          </a>
-          <p className="mt-2 text-gray-500">{item.text}</p>
+            <a title={item.author.name} style={{maxWidth:"120px"}} className="block mx-auto p-2">
+              <EntityImage entity={item.author} />
+            </a>
+          </Link>
+          <p>{item.author.name}</p>
         </div>
-      </a>
-    </Link>
-  </div>
-);
+        <div className="p-6">
+          <blockquote>
+            {item.text}
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Item;

@@ -28,6 +28,24 @@ body {
   @apply text-white bg-red-600 hover:bg-red-500 focus:border-red-700;
 }
 
+.q-text {
+  @apply subpixel-antialiased italic font-semibold;
+}
+
+.q-text::before, .q-text::after {
+  @apply text-6xl text-blue-900 absolute leading-4 font-serif;
+}
+
+.q-text::before {
+  content: '“';
+  @apply pr-2;
+}
+
+.q-text::after {
+  content: '„';
+  @apply pl-2;
+}
+
 /* Start purging... */
 @tailwind utilities;
 /* Stop purging. */

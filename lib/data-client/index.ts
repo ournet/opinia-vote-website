@@ -3,7 +3,10 @@ import statementVote from "./statement-vote";
 import statementsList from "./statements-list";
 
 const statementById = (id: number) =>
-  prisma.statement.findUnique({ where: { id }, include: { author: true } });
+  prisma.statement.findUnique({
+    where: { id },
+    include: { author: true, entities: { include: { entity: true } } }
+  });
 
 const statementCounts = (id: number) =>
   prisma.statement.findUnique({

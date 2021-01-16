@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
-import { Statement } from "@prisma/client";
 import { toIntOrNull } from "../../lib/utils";
-import links from "../../lib/links";
 import dataClient from "../../lib/data-client";
-import StatementCountsForm from "../../components/StatementCountsForm";
+import StatementVoteForm from "../../components/StatementVoteForm";
+import StatementListItem from "../../components/StatementListItem";
+import { StatementCountsType, StatementItemType } from "../../lib/types";
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = toIntOrNull(params?.id);
@@ -22,19 +22,23 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 type Props = {
-  statement: Statement;
+  statement: StatementItemType;
 };
 
 const Index: React.FC<Props> = ({ statement }) => {
+  const [counts, setCounts] = useState<StatementCountsType>(statement);
+
   return (
     <Layout>
       <main>
         <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            <div className="post">
-              <a href={links.statement(statement.id)}>Title</a>
-            </div>
-            <StatementCountsForm statement={statement} />
+            <StatementListItem item={{ ...statement, ...counts }} />
+            <h4 className="p-6 text-center text-2xl">{statement.question}</h4>
+            <StatementVoteForm
+              statement={statement}
+              onNewCounts={(data) => setCounts(data)}
+            />
           </div>
         </div>
       </main>

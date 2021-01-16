@@ -1,16 +1,16 @@
 import { signIn, useSession } from "next-auth/client";
 import React, { useState } from "react";
-import useStatementCounts from "../lib/api-client/use-statement-counts";
-import links from "../lib/links";
-import useTranslation from "../lib/locales/use-translation";
-import { StatementCountsType } from "../lib/types";
-import StatementCountsBar from "./StatementCountsBar";
+import useStatementCounts from "../../lib/api-client/use-statement-counts";
+import links from "../../lib/links";
+import useTranslation from "../../lib/locales/use-translation";
+import { StatementCountsType } from "../../lib/types";
 
 type Props = {
   statement: StatementCountsType;
+  onNewCounts?: (counts: StatementCountsType) => void;
 };
 
-const StatementCountsForm: React.FC<Props> = ({ statement }) => {
+const StatementVoteForm: React.FC<Props> = ({ statement, onNewCounts }) => {
   const [loading, setLoading] = useState(false);
   const [session] = useSession();
   const statementId = statement.id;
@@ -29,6 +29,7 @@ const StatementCountsForm: React.FC<Props> = ({ statement }) => {
     ).then((r) => r.json());
     setLoading(false);
     mutate(result, false);
+    if (onNewCounts) onNewCounts(result);
   };
 
   const btnClass = `inline-flex items-center btn ${
@@ -37,10 +38,6 @@ const StatementCountsForm: React.FC<Props> = ({ statement }) => {
 
   return (
     <div className={loading ? "animate-pulse" : ""}>
-      <StatementCountsBar
-        countMinusVotes={data?.countMinusVotes ?? statement.countMinusVotes}
-        countPlusVotes={data?.countPlusVotes ?? statement.countPlusVotes}
-      />
       <div className="flex flex-wrap -m-4">
         <div className="p-4 w-1/2 flex justify-around">
           <button
@@ -67,4 +64,4 @@ const StatementCountsForm: React.FC<Props> = ({ statement }) => {
   );
 };
 
-export default StatementCountsForm;
+export default StatementVoteForm;

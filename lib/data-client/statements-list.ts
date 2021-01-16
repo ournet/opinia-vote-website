@@ -16,7 +16,7 @@ export interface StatementsListParams {
 const statementsList = ({ take, orderBy, where, skip }: StatementsListParams) =>
   prisma.statement.findMany({
     where,
-    include: { author: true },
+    include: { author: true, entities: { include: { entity: true } } },
     take,
     orderBy,
     skip

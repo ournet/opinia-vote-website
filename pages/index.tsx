@@ -4,9 +4,9 @@ import Layout from "../components/Layout";
 import useTranslation from "../lib/locales/use-translation";
 import dataClient from "../lib/data-client";
 import MoreStatementList from "../components/MoreStatementList";
-import { ApiGetStatementListParams } from "../lib/api-client/use-statement-list";
 import { useRouter } from "next/router";
 import { StatementItemType } from "../lib/types";
+import { ApiGetStatementListParams } from "../lib/links";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const languageCode = locale || "";

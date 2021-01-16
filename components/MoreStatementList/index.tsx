@@ -1,8 +1,9 @@
 import React from "react";
-import useStatementList from "../lib/api-client/use-statement-list";
-import { ApiGetStatementListParams } from "../lib/links";
-import { StatementItemType } from "../lib/types";
-import StatementList from "./StatementList";
+import useStatementList from "../../lib/api-client/use-statement-list";
+import { ApiGetStatementListParams } from "../../lib/links";
+import useTranslation from "../../lib/locales/use-translation";
+import { StatementItemType } from "../../lib/types";
+import StatementList from "../StatementList";
 
 export type MoreStatementListItemsProps = {
   initialData: StatementItemType[];
@@ -13,6 +14,7 @@ const MoreStatementList: React.FC<MoreStatementListItemsProps> = ({
   initialData,
   params
 }) => {
+  const t = useTranslation();
   const { data, error, mutate, size, setSize, isValidating } = useStatementList(
     params,
     initialData
@@ -34,9 +36,13 @@ const MoreStatementList: React.FC<MoreStatementListItemsProps> = ({
     <>
       <StatementList items={items} />
       {!isReachingEnd && !error && (
-        <div>
-          <button disabled={isLoadingMore} onClick={() => setSize(size + 1)}>
-            {isLoadingMore ? "loading..." : "load more"}
+        <div className="text-center mt-2">
+          <button
+            className="btn"
+            disabled={isLoadingMore}
+            onClick={() => setSize(size + 1)}
+          >
+            {isLoadingMore ? t.loading_() : t.load_more()}
           </button>
         </div>
       )}

@@ -60,6 +60,14 @@ export class LocalizyLocales {
     no() {
         return this.v('no');
     }
+
+    loading_() {
+        return this.v('loading_');
+    }
+
+    load_more() {
+        return this.v('load_more');
+    }
 }
 
 export type LocalesKey = 'home'
@@ -67,4 +75,6 @@ export type LocalesKey = 'home'
     | 'statement'
     | 'authors'
     | 'yes'
-    | 'no';
+    | 'no'
+    | 'loading_'
+    | 'load_more';

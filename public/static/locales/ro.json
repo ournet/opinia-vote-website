@@ -4,5 +4,7 @@
   "statement": "Declarație",
   "authors": "Autori",
   "yes": "Da",
-  "no": "Nu"
+  "no": "Nu",
+  "loading_": "Se încarcă...",
+  "load_more": "Mai mult"
 }

@@ -13,7 +13,7 @@ export interface ApiPostVoteParams {
 }
 
 export default {
-  statement: (id: number) => `/p/${id}`,
+  statement: (id: number) => `/statement/${id}`,
   entity: (slug: string, id: number) => `/entity/${slug}-${id}`,
   index: () => `/`,
   login: () => `/signin`,

@@ -15,7 +15,7 @@ const MoreStatementList: React.FC<MoreStatementListItemsProps> = ({
   params
 }) => {
   const t = useTranslation();
-  const { data, error, mutate, size, setSize, isValidating } = useStatementList(
+  const { data, error, size, setSize } = useStatementList(
     params,
     initialData
   );

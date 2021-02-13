@@ -14,7 +14,7 @@ const StatementVoteForm: React.FC<Props> = ({ statement, onNewCounts }) => {
   const [loading, setLoading] = useState(false);
   const [session] = useSession();
   const statementId = statement.id;
-  const { data, error, mutate } = useStatementCounts(statementId, statement);
+  const { data, mutate } = useStatementCounts(statementId, statement);
   const t = useTranslation();
 
   const vote = async (e: any) => {

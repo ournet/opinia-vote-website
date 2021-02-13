@@ -1,0 +1,22 @@
+{
+  "addons": ["papertrail", "heroku-postgresql"],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "description": "Configuration for Heroku pipeline review apps",
+  "env": {
+    "NODE_ENV": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "opinia-website",
+  "scripts": {},
+  "stack": "heroku-18"
+}

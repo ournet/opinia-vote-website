@@ -1,0 +1,60 @@
+version: "3.1"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    links:
+      - db
+      - redis
+    ports:
+      - ${WEB_PORT:-8000}:8000 # Application port
+      - ${WEB_DEBUG_PORT:-9222}:9222 # Debugging port
+    environment:
+      REDIS_URL: redis://opinia_cache
+      DATABASE_URL: postgres://opinia@db:5432/opinia_db
+
+    volumes:
+      - .:/usr/src/app
+      # More info on the node_modules volume at:
+      # http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
+      # under "The node_modules Volume Trick"
+      - /usr/src/app/node_modules
+    # Run nodemon with legacy watch
+    # https://github.com/remy/nodemon#application-isnt-restarting
+    # Ignore public/ because generating documentation programatically
+    # on startup was causing an infinite loop
+    command: yarn dev
+    depends_on:
+      - db
+      - redis
+
+  # Should only be used in development, we use seperate host for staging and prod
+  db:
+    image: postgres:latest
+    command: ["postgres", "-c", "max_connections=200"]
+    restart: always
+    networks:
+      - default
+    ports:
+      - ${PG_DATABASE_PORT:-5432}:5432
+    volumes:
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/1-database.sql
+      - postgres-storage:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "opinia"
+      POSTGRES_DB: "opinia_db"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+
+  redis:
+    image: redis
+    container_name: opinia_cache
+    ports:
+      # expose for local testing
+      - ${API_REDIS_PORT:-6379}:6379
+
+volumes:
+  # Database named module has to be declared globally
+  postgres-storage:

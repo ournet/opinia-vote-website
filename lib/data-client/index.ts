@@ -5,13 +5,13 @@ import statementsList from "./statements-list";
 const statementById = (id: number) =>
   prisma.statement.findUnique({
     where: { id },
-    include: { author: true, entities: { include: { entity: true } } }
+    include: { author: true, entities: { include: { entity: true } } },
   });
 
 const statementCounts = (id: number) =>
   prisma.statement.findUnique({
     where: { id },
-    select: { countMinusVotes: true, id: true, countPlusVotes: true }
+    select: { countMinusVotes: true, id: true, countPlusVotes: true },
   });
 
 const userByEmail = (email: string) =>
@@ -22,9 +22,12 @@ export default {
     vote: statementVote,
     findById: statementById,
     list: statementsList,
-    counts: statementCounts
+    counts: statementCounts,
   },
   user: {
-    byEmail: userByEmail
-  }
+    byEmail: userByEmail,
+  },
+  entity: {
+    // top:()
+  },
 };

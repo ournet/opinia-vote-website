@@ -1,6 +1,7 @@
 import prisma from "./prisma";
 import statementVote from "./statement-vote";
 import statementsList from "./statements-list";
+import topAuthors from "./top-authors";
 
 const statementById = (id: number) =>
   prisma.statement.findUnique({
@@ -27,6 +28,7 @@ export default {
   user: {
     byEmail: userByEmail,
   },
+  topAuthors,
   entity: {
     // top:()
   },

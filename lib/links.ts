@@ -15,6 +15,7 @@ export interface ApiPostVoteParams {
 export default {
   statement: (id: number) => `/statement/${id}`,
   entity: (slug: string, id: number) => `/entity/${slug}-${id}`,
+  authors: () => `/authors`,
   index: () => `/`,
   login: () => `/signin`,
   logout: () => `/signout`,
@@ -25,12 +26,12 @@ export default {
       },
       counts(statementId: number) {
         return `/api/statements/${statementId}/counts`;
-      }
+      },
     },
     votes: {
       post(params: Partial<ApiPostVoteParams> = {}) {
         return buildUrl("/api/votes", params);
-      }
-    }
-  }
+      },
+    },
+  },
 };

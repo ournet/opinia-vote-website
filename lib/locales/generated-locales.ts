@@ -68,6 +68,10 @@ export class LocalizyLocales {
     load_more() {
         return this.v('load_more');
     }
+
+    top_authors() {
+        return this.v('top_authors');
+    }
 }
 
 export type LocalesKey = 'home'
@@ -77,4 +81,5 @@ export type LocalesKey = 'home'
     | 'yes'
     | 'no'
     | 'loading_'
-    | 'load_more';
+    | 'load_more'
+    | 'top_authors';

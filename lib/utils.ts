@@ -16,3 +16,8 @@ export const buildUrl = (path: string, query: any) => {
 
   return q.length > 0 ? `${path}?${q.join("&")}` : path;
 };
+
+export const filterValues = <T>(values: unknown[], arr: T[]) =>
+  arr.filter((item) => !values.includes(item));
+
+export const filterUndefined = <T>(arr: T[]) => filterValues([undefined], arr);
